@@ -1,0 +1,29 @@
+# Wrangler configuration for VLESS+Trojan Cloudflare Worker
+
+name = "vless-ws"
+main = "vless-trojan-worker.js"
+compatibility_date = "2023-12-01"
+
+# Triggers (none by default)
+[triggers]
+crons = []
+
+# Routes - replace with your actual domain
+[[routes]]
+pattern = "vless-ws.yourdomain.com"
+custom_domain = true
+
+# Environment variables (none by default)
+[vars]
+
+# Module rules
+[[rules]]
+type = "ESModule"
+globs = ["**/*.js"]
+
+[rules.headers]
+Content-Type = "application/javascript"
+
+# Worker placement
+[placement]
+mode = "smart"

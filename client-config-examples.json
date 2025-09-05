@@ -1,0 +1,137 @@
+{
+  "vless-client-config": {
+    "description": "Example configuration for v2ray/xray clients",
+    "config": {
+      "inbounds": [
+        {
+          "port": 1080,
+          "protocol": "socks",
+          "settings": {
+            "udp": true
+          }
+        }
+      ],
+      "outbounds": [
+        {
+          "protocol": "vless",
+          "settings": {
+            "vnext": [
+              {
+                "address": "vless-ws.yourdomain.com",
+                "port": 443,
+                "users": [
+                  {
+                    "id": "your-uuid-here",
+                    "encryption": "none"
+                  }
+                ]
+              }
+            ]
+          },
+          "streamSettings": {
+            "network": "ws",
+            "security": "tls",
+            "tlsSettings": {
+              "serverName": "vless-ws.yourdomain.com",
+              "allowInsecure": false
+            },
+            "wsSettings": {
+              "path": "/your-proxy-target",
+              "headers": {
+                "Host": "vless-ws.yourdomain.com"
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "trojan-client-config": {
+    "description": "Example configuration for Trojan clients",
+    "config": {
+      "run_type": "client",
+      "local_addr": "127.0.0.1",
+      "local_port": 1080,
+      "remote_addr": "vless-ws.yourdomain.com",
+      "remote_port": 443,
+      "password": ["your-uuid-here"],
+      "log_level": 1,
+      "ssl": {
+        "verify": true,
+        "verify_hostname": true,
+        "sni": "vless-ws.yourdomain.com",
+        "alpn": [
+          "h2",
+          "http/1.1"
+        ],
+        "reuse_session": true,
+        "session_ticket": false,
+        "curves": ""
+      },
+      "websocket": {
+        "enabled": true,
+        "path": "/your-proxy-target",
+        "host": "vless-ws.yourdomain.com"
+      }
+    }
+  },
+  "clash-client-config": {
+    "description": "Example configuration for Clash clients",
+    "config": {
+      "proxies": [
+        {
+          "name": "VLESS-WS-TLS",
+          "type": "vless",
+          "server": "vless-ws.yourdomain.com",
+          "port": 443,
+          "uuid": "your-uuid-here",
+          "network": "ws",
+          "tls": true,
+          "udp": true,
+          "ws-opts": {
+            "path": "/your-proxy-target",
+            "headers": {
+              "Host": "vless-ws.yourdomain.com"
+            }
+          }
+        },
+        {
+          "name": "Trojan-WS-TLS",
+          "type": "trojan",
+          "server": "vless-ws.yourdomain.com",
+          "port": 443,
+          "password": "your-uuid-here",
+          "network": "ws",
+          "tls": true,
+          "udp": true,
+          "ws-opts": {
+            "path": "/your-proxy-target",
+            "headers": {
+              "Host": "vless-ws.yourdomain.com"
+            }
+          }
+        }
+      ],
+      "proxy-groups": [
+        {
+          "name": "PROXY",
+          "type": "select",
+          "proxies": [
+            "VLESS-WS-TLS",
+            "Trojan-WS-TLS"
+          ]
+        }
+      ]
+    }
+  },
+  "shadowrocket-config": {
+    "description": "Example configuration for Shadowrocket (iOS)",
+    "vless-format": "vless://your-uuid-here@vless-ws.yourdomain.com:443?encryption=none&security=tls&type=ws&path=/your-proxy-target#VLESS-WS-TLS",
+    "trojan-format": "trojan://your-uuid-here@vless-ws.yourdomain.com:443?security=tls&type=ws&path=/your-proxy-target#Trojan-WS-TLS"
+  },
+  "v2rayng-config": {
+    "description": "Example configuration for v2rayNG (Android)",
+    "vless-format": "vless://your-uuid-here@vless-ws.yourdomain.com:443?encryption=none&security=tls&type=ws&path=/your-proxy-target#VLESS-WS-TLS",
+    "trojan-format": "trojan://your-uuid-here@vless-ws.yourdomain.com:443?security=tls&type=ws&path=/your-proxy-target#Trojan-WS-TLS"
+  }
+}
