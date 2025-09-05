@@ -41,7 +41,7 @@ export default {
       // Handle WebSocket connections
       if (upgradeHeader === "websocket") {
         // Extract target from path
-        const pathMatch = url.pathname.match(/^\\/(.+)$/);
+        const pathMatch = url.pathname.match(/^\/(.+)$/);
         if (pathMatch) {
           // Set proxy target from path
           const proxyTarget = pathMatch[1];
