@@ -1,6 +1,6 @@
 # Wrangler configuration for VLESS+Trojan Cloudflare Worker
 
-name = "vless-ws"
+name = "ws"
 main = "vless-trojan-worker.js"
 compatibility_date = "2023-12-01"
 
@@ -10,7 +10,7 @@ crons = []
 
 # Routes - replace with your actual domain
 [[routes]]
-pattern = "vless-ws.yourdomain.com"
+pattern = "ws.ahemmm.my.id"
 custom_domain = true
 
 # Environment variables (none by default)
