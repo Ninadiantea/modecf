@@ -116,7 +116,7 @@ async function handleHttpRequest(request, url) {
 // ======= WEBSOCKET HANDLER =======
 async function handleWebSocketConnection(request, url) {
   // Extract target from path
-  const pathMatch = url.pathname.match(/^\\/(.+)$/);
+  const pathMatch = url.pathname.match(/^\/(.+)$/);
   let proxyTarget = "";
   
   if (pathMatch) {
